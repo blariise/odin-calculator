@@ -95,6 +95,7 @@ function calculator() {
         
         operator = button.textContent;
         display_text = "";
+        is_dot_clicked = false;
       }
 
       if (class_type === "evaluate") {
