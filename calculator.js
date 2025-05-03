@@ -2,6 +2,7 @@ let operator;
 let left_number;
 let right_number;
 let display_text = "";
+let is_dot_clicked = false;
 
 function add(a, b) {
   return a + b;
@@ -33,16 +34,23 @@ function operate(op, a, b) {
 }
 
 function shouldItDisplay(button) {
-  console.log(display_text.length);
-  return display_text.length < 9 
-         && button.getAttribute("class") === "number";
+  const btn_atr = button.getAttribute("class");
+  if (btn_atr === "dot" && !is_dot_clicked) {
+    is_dot_clicked = true;
+    return true;
+  }
+  if (btn_atr === "number" 
+      && button.textContent === "0" 
+      && display_text === "0") {
+    return false;
+  }
+  return display_text.length < 9 && btn_atr === "number";
 }
 
 function calculator() {
   const buttons = document.querySelectorAll("button");
   const display = document.querySelector(".text");
   buttons.forEach((button) => {
-    let is_number = button.getAttribute("class") === "number";
     button.addEventListener("click", () => {
       if (shouldItDisplay(button)) {
         display_text += button.textContent;
