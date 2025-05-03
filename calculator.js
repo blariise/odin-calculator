@@ -90,6 +90,11 @@ function calculator() {
       }
 
       if (class_type === "operator") {
+        if (operator !== "") {
+          evaluate();
+          display.textContent = display_text;
+        }
+
         if (display_text !== "")
           left_number = Number(display_text);
         
