@@ -1,6 +1,6 @@
-let operator;
-let left_number;
-let right_number;
+let operator = "";
+let left_number = 0;
+let right_number = 0;
 let display_text = "";
 let is_dot_clicked = false;
 
@@ -33,6 +33,14 @@ function operate(op, a, b) {
   }
 }
 
+function resetState() {
+  operator = "";
+  left_number = 0;
+  right_number = 0;
+  display_text = "";
+  is_dot_clicked = false;
+}
+
 function shouldItDisplay(button) {
   const btn_atr = button.getAttribute("class");
   if (btn_atr === "dot" && !is_dot_clicked) {
@@ -52,10 +60,17 @@ function calculator() {
   const display = document.querySelector(".text");
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
+
+      if (button.getAttribute("id") === "clear") {
+        resetState();
+        display.textContent = display_text;
+      }
+
       if (shouldItDisplay(button)) {
         display_text += button.textContent;
         display.textContent = display_text;
       }
+
     });
   });
 }
