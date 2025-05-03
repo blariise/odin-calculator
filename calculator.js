@@ -41,18 +41,17 @@ function resetState() {
   is_dot_clicked = false;
 }
 
-function shouldItDisplay(button) {
-  const btn_atr = button.getAttribute("class");
-  if (btn_atr === "dot" && !is_dot_clicked) {
+function shouldItDisplay(button, class_type) {
+  if (class_type === "dot" && !is_dot_clicked) {
     is_dot_clicked = true;
     return true;
   }
-  if (btn_atr === "number" 
+  if (class_type === "number" 
       && button.textContent === "0" 
       && display_text === "0") {
     return false;
   }
-  return display_text.length < 9 && btn_atr === "number";
+  return display_text.length < 9 && class_type === "number";
 }
 
 function calculator() {
@@ -61,12 +60,14 @@ function calculator() {
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
 
-      if (button.getAttribute("id") === "clear") {
+      let class_type = button.getAttribute("class");
+      
+      if (class_type === "clear") {
         resetState();
         display.textContent = display_text;
       }
 
-      if (shouldItDisplay(button)) {
+      if (shouldItDisplay(button, class_type)) {
         display_text += button.textContent;
         display.textContent = display_text;
       }
