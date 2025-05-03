@@ -60,23 +60,46 @@ function shouldItDisplay(button, class_type) {
 }
 
 function evaluate() {
-  if (right_number === 0 && operator === "/") {
-    display_text = "ERROR";
-    return;
-  }
 
   if (display_text == "") {
     right_number = 0;
   } else {
     right_number = Number(display_text);
   }
-  display_text = operate(operator, left_number, right_number) + "";
+
+  if (operator === "/" && right_number === 0) {
+    display_text = "ERROR";
+    return;
+  }
+
+  display_text = checkForDisplayOverflow(operate(operator, left_number, right_number));
 
   left_number = Number(display_text);
   right_number = 0;
   operator = "";
   is_evaluated = true;
 }
+
+function checkForDisplayOverflow(num) {
+  let number = Number(num);
+  if (Number.isInteger(number)) {
+    if (number > 999999999) {
+      return "999999999";
+    }
+    return number + "";
+  } else {
+    let temp = number + "";
+    temp = temp.split("");
+    console.log()
+    if (temp.length > 8) {
+      for (let i = temp.length; i > 8; --i) {
+        temp.pop();
+      }
+    }
+    return temp.join("");
+  }
+}
+
 
 function calculator() {
   const buttons = document.querySelectorAll("button");
