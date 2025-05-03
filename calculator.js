@@ -30,6 +30,8 @@ function operate(op, a, b) {
       return multiply(a, b);
     case "/":
       return divide(a, b);
+    default:
+      return left_number;
   }
 }
 
@@ -46,12 +48,27 @@ function shouldItDisplay(button, class_type) {
     is_dot_clicked = true;
     return true;
   }
-  if (class_type === "number" 
-      && button.textContent === "0" 
-      && display_text === "0") {
+  if (class_type === "number" && display_text === "0") {
+    if (button.textContent !== "0") {
+      display_text = "";
+      return true;
+    }
     return false;
   }
   return display_text.length < 9 && class_type === "number";
+}
+
+function evaluate() {
+  if (display_text == "") {
+    right_number = 0;
+  } else {
+    right_number = Number(display_text);
+  }
+  display_text = operate(operator, left_number, right_number) + "";
+
+  left_number = Number(display_text);
+  right_number = 0;
+  operator = "";
 }
 
 function calculator() {
@@ -69,6 +86,19 @@ function calculator() {
 
       if (shouldItDisplay(button, class_type)) {
         display_text += button.textContent;
+        display.textContent = display_text;
+      }
+
+      if (class_type === "operator") {
+        if (display_text !== "")
+          left_number = Number(display_text);
+        
+        operator = button.textContent;
+        display_text = "";
+      }
+
+      if (class_type === "evaluate") {
+        evaluate();
         display.textContent = display_text;
       }
 
