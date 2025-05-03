@@ -59,6 +59,11 @@ function shouldItDisplay(button, class_type) {
 }
 
 function evaluate() {
+  if (right_number === 0 && operator === "/") {
+    display_text = "ERROR";
+    return;
+  }
+
   if (display_text == "") {
     right_number = 0;
   } else {
@@ -108,6 +113,9 @@ function calculator() {
         display.textContent = display_text;
       }
 
+      if (display.textContent === "ERROR") {
+        resetState();
+      }
     });
   });
 }
