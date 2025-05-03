@@ -18,7 +18,7 @@ body {
   margin: 100px;
   padding: 30px;
   width: 300px;
-  height: 450px;
+  height: 500px;
 
   display: flex;
   flex-direction: column;
@@ -100,3 +100,7 @@ body {
   background-color: #EB2338;
 }
 
+.buttons .evaluate {
+  margin-left: auto;
+  flex: 0 1 110px;
+}
