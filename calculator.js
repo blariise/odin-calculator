@@ -3,6 +3,7 @@ let left_number = 0;
 let right_number = 0;
 let display_text = "";
 let is_dot_clicked = false;
+let is_evaluated = false;
 
 function add(a, b) {
   return a + b;
@@ -74,6 +75,7 @@ function evaluate() {
   left_number = Number(display_text);
   right_number = 0;
   operator = "";
+  is_evaluated = true;
 }
 
 function calculator() {
@@ -83,7 +85,13 @@ function calculator() {
     button.addEventListener("click", () => {
 
       let class_type = button.getAttribute("class");
-      
+
+      if (is_evaluated && class_type === "number") {
+        display_text = "";
+        display.textContent = display_text;
+        is_evaluated = false;
+      }
+
       if (class_type === "clear") {
         resetState();
         display.textContent = display_text;
