@@ -109,6 +109,15 @@ function calculator() {
 
       let class_type = button.getAttribute("class");
 
+      if (class_type === "backspace") {
+        if (display_text !== "") {
+          let temp = display_text.split("");
+          temp.pop();
+          display_text = temp.join("");
+          display.textContent = display_text;
+        }
+      }
+
       if (is_evaluated && class_type === "number") {
         display_text = "";
         display.textContent = display_text;
